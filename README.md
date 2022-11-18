@@ -77,3 +77,7 @@ function f() {
 
 $ interpreter-rs --file tests/test
 10
+```
+
+## ToDo
+- [ ] better error handling
