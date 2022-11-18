@@ -54,21 +54,26 @@ $ interpreter-rs --file tests/test
 ## tests/loop_test
 function f() {
 
-    x = 1                   LOAD_VAL 1
-                            WRITE_VAR ‘x’
+    a = 10                  LOAD_VAL 10
+                            WRITE_VAR 'a'
 
-    y = 2                   LOAD_VAL 2
-                            WRITE_VAR ‘y’
+    b = 0                   LOAD_VAL 0
+                            WRITE_VAR 'b'
 
-    return (x + 1) * y      READ_VAR ‘x’
+    while a                 READ_VAR 'a'
+        b = b + 1           JE 15
+        a = a - 1           READ_VAR 'b'
                             LOAD_VAL 1
                             ADD
+                            WRITE_VAR 'b'
+                            READ_VAR 'a'
+                            LOAD_VAL 1
+                            SUB
+                            WRITE_VAR 'a'
+                            JUMP 4
 
-                            READ_VAR ‘y’
-                            MULTIPLY
-
-                            RETURN_VALUE
+    return b                RETURN_VALUE
 }
 
 $ interpreter-rs --file tests/test
-4
+10
